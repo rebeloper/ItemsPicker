@@ -7,15 +7,15 @@
 
 import SwiftUI
 
-enum ItemsPickerAlignment {
+public enum ItemsPickerAlignment {
     case leading, trailing
 }
 
-enum ItemsPickerStyle {
+public enum ItemsPickerStyle {
     case automatic, sidebar, insetGrouped, grouped, inset, plain
 }
 
-extension ItemsPicker where Label == EmptyView {
+public extension ItemsPicker where Label == EmptyView {
     init(data: Binding<[Item]>,
          selected: Binding<[Item]>,
          alignment: ItemsPickerAlignment = .leading,
@@ -34,27 +34,27 @@ extension ItemsPicker where Label == EmptyView {
     }
 }
 
-struct ItemsPicker<Item: Hashable, Cell: View, CheckedIcon: View, UncheckedIcon: View, Label: View>: View {
+public struct ItemsPicker<Item: Hashable, Cell: View, CheckedIcon: View, UncheckedIcon: View, Label: View>: View {
     
-    @Binding var data: [Item]
-    @Binding var selected: [Item]
-    var alignment: ItemsPickerAlignment
-    var style: ItemsPickerStyle
-    @ViewBuilder var cell: (Item) -> (Cell)
-    @ViewBuilder var checkedIcon: () -> CheckedIcon
-    @ViewBuilder var uncheckedIcon: () -> UncheckedIcon
-    @ViewBuilder var label: () -> Label
+    @Binding public var data: [Item]
+    @Binding public var selected: [Item]
+    public var alignment: ItemsPickerAlignment
+    public var style: ItemsPickerStyle
+    @ViewBuilder public var cell: (Item) -> (Cell)
+    @ViewBuilder public var checkedIcon: () -> CheckedIcon
+    @ViewBuilder public var uncheckedIcon: () -> UncheckedIcon
+    @ViewBuilder public var label: () -> Label
     
     @State private var isOn = false
     
-    init(data: Binding<[Item]>,
-         selected: Binding<[Item]>,
-         alignment: ItemsPickerAlignment = .leading,
-         style: ItemsPickerStyle,
-         @ViewBuilder cell: @escaping (Item) -> (Cell),
-         @ViewBuilder checkedIcon: @escaping () -> CheckedIcon,
-         @ViewBuilder uncheckedIcon: @escaping () -> UncheckedIcon,
-         @ViewBuilder label: @escaping () -> Label) {
+    public init(data: Binding<[Item]>,
+                selected: Binding<[Item]>,
+                alignment: ItemsPickerAlignment = .leading,
+                style: ItemsPickerStyle,
+                @ViewBuilder cell: @escaping (Item) -> (Cell),
+                @ViewBuilder checkedIcon: @escaping () -> CheckedIcon,
+                @ViewBuilder uncheckedIcon: @escaping () -> UncheckedIcon,
+                @ViewBuilder label: @escaping () -> Label) {
         self._data = data
         self._selected = selected
         self.alignment = alignment
@@ -65,7 +65,7 @@ struct ItemsPicker<Item: Hashable, Cell: View, CheckedIcon: View, UncheckedIcon:
         self.label = label
     }
     
-    var body: some View {
+    public var body: some View {
         List {
             Section {
                 ForEach(data, id: \.self) { item in
@@ -139,7 +139,7 @@ struct ItemsPicker<Item: Hashable, Cell: View, CheckedIcon: View, UncheckedIcon:
 }
 
 
-extension View {
+public extension View {
     @ViewBuilder
     func `if`<Content: View>(_ condition: @autoclosure () -> Bool, transform: (Self) -> Content) -> some View {
         if condition() {
